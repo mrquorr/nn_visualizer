@@ -24,3 +24,11 @@ pip install PyGObject==3.46.0
 ## Running it
 
 you can run with `python examples.py`, this will run the demonstration with the 5 examples listed there. You can modify the examples for different visualizations, or add your own.
+
+## Forward propagation example
+
+![](./images/1.png)
+
+## Backwards propagation example
+
+![](./images/2.png)
