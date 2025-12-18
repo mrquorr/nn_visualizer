@@ -65,7 +65,9 @@ def example_regression_network():
     model = nn.Sequential(
         nn.Linear(4, 8),
         nn.Sigmoid(),
-        nn.Linear(8, 1)
+        nn.Linear(8, 4),
+        nn.Sigmoid(),
+        nn.Linear(4, 1)
     )
     
     input_data = torch.tensor([0.5, -0.3, 0.8, -0.1])
