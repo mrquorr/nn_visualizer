@@ -15,11 +15,9 @@ I had some issues installing `PyGObject` because gi library 2.0 is not available
 pip install PyGObject==3.46.0
 ```
 
-## Different visualizers
+## Visualizer description
 
-* v1 shows only the calculations as they propagate through the netwokr
-* v2 shows the entire network
-* v3 shows a detailed breakdown of calculations on each layer
+v3 shows a detailed breakdown of calculations on each layer
 
 ## Running it
 
