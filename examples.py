@@ -6,7 +6,7 @@ Shows how to visualize different network architectures
 
 import torch
 import torch.nn as nn
-from nn_visualizerv3 import NeuralNetworkVisualizer
+from nn_visualizerv5 import NeuralNetworkVisualizer
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -78,16 +78,15 @@ def example_regression_network():
     win.show_all()
     Gtk.main()
 
-
 # Example 4: Custom Network Class
 class CustomNetwork(nn.Module):
     """Example of using a custom nn.Module"""
     
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(5, 6)
+        self.fc1 = nn.Linear(3, 4)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(6, 3)
+        self.fc2 = nn.Linear(4, 2)
         self.sigmoid = nn.Sigmoid()
     
     def forward(self, x):
@@ -104,8 +103,8 @@ def example_custom_network():
     
     model = CustomNetwork()
     
-    input_data = torch.tensor([1.0, 0.5, -0.2, 0.8, -0.5])
-    target = torch.tensor([0.8, 0.3, 0.1])
+    input_data = torch.tensor([0,7, 0.4, 0.9])
+    target = torch.tensor([1.0, 0.3])
     
     win = NeuralNetworkVisualizer(model, input_data, target)
     win.connect("destroy", Gtk.main_quit)
@@ -117,33 +116,39 @@ def example_custom_network():
 def example_pretrained_network():
     """Visualize a network with pre-trained weights"""
     print("\n=== Example 5: Pre-trained Network ===")
-    
+
     model = nn.Sequential(
-        nn.Linear(3, 5),
+        nn.Linear(2, 3),
         nn.ReLU(),
-        nn.Linear(5, 2)
+        nn.Linear(3, 2),
+        nn.ReLU(),
+        nn.Linear(2, 1),
+        nn.Sigmoid()
     )
-    
+
     # Set specific weights for demonstration
     with torch.no_grad():
         model[0].weight.data = torch.tensor([
-            [0.5, -0.3, 0.2],
-            [0.8, 0.1, -0.4],
-            [-0.2, 0.6, 0.3],
-            [0.4, -0.5, 0.7],
-            [-0.6, 0.2, -0.1]
+            [0.8, -0.3],
+            [-0.5, 0.1],
+            [0.4, -0.2]
         ])
-        model[0].bias.data = torch.tensor([0.1, -0.2, 0.3, -0.1, 0.2])
-        
+        model[0].bias.data = torch.tensor([1.2, -0.1, 1.1])
+
         model[2].weight.data = torch.tensor([
-            [0.3, -0.4, 0.5, -0.2, 0.6],
-            [-0.5, 0.3, -0.1, 0.4, -0.3]
+            [0.3, 0.8, 1.1],
+            [0.2, -1.9, -0.8]
         ])
-        model[2].bias.data = torch.tensor([0.2, -0.1])
-    
-    input_data = torch.tensor([1.0, 0.5, -0.3])
-    target = torch.tensor([0.8, 0.2])
-    
+        model[2].bias.data = torch.tensor([-0.4, -0.1])
+
+        model[4].weight.data = torch.tensor([
+            [-0.1, 0.6]
+        ])
+        model[4].bias.data = torch.tensor([0.4])
+
+    input_data = torch.tensor([-0.5, 0.2])
+    target = torch.tensor([1.0])
+
     win = NeuralNetworkVisualizer(model, input_data, target)
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
