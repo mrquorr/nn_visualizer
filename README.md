@@ -1,6 +1,9 @@
 # nn_visualizer
 Python tool that uses GTK3 to see the calculatiosn in small torch neural networks.
 
+## Limitations
+A limit of 40 neurons was added to ensure visualizations aren't too large.
+
 ## Installation
 Make sure you have the packages installed.
 
